@@ -1,4 +1,20 @@
-import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  Heading,
+  Icon,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import Link from "next/link";
 import { RiAddLine } from "react-icons/ri";
 
 import { Header } from "../../components/Header";
@@ -6,6 +22,11 @@ import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 
 export default function UserList() {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
     <Box>
       <Header />
@@ -18,25 +39,33 @@ export default function UserList() {
               Users
             </Heading>
 
-            <Button as="a" size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20" />}>
-              New user
-            </Button>
+            <Link href="/users/create" passHref>
+              <Button
+                as="a"
+                size="sm"
+                fontSize="sm"
+                colorScheme="pink"
+                leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+              >
+                New user
+              </Button>
+            </Link>
           </Flex>
 
           <Table colorScheme="whiteAlpha">
             <Thead>
               <Tr>
-                <Th px="6" color="gray.300" w="8">
+                <Th px={["4", "4", "6"]} color="gray.300" w="8">
                   <Checkbox colorScheme="pink" />
                 </Th>
                 <Th>User</Th>
-                <Th>Date Added</Th>
+                {isWideVersion && <Th>Date Added</Th>}
               </Tr>
             </Thead>
 
             <Tbody>
               <Tr>
-                <Td>
+                <Td px={["4", "4", "6"]}>
                   <Checkbox colorScheme="pink" />
                 </Td>
                 <Td>
@@ -47,7 +76,7 @@ export default function UserList() {
                     </Text>
                   </Box>
                 </Td>
-                <Td>December 13, 2022</Td>
+                {isWideVersion && <Td>December 13, 2022</Td>}
               </Tr>
             </Tbody>
           </Table>
